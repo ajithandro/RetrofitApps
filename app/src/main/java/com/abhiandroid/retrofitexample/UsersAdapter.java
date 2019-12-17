@@ -17,11 +17,13 @@ import java.util.List;
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHolder> {
 
     Context context;
+    UsersAdapter  usersAdapter;
     List<UserListResponse> userListResponseData;
 
     public UsersAdapter(Context context, List<UserListResponse> userListResponseData) {
         this.userListResponseData = userListResponseData;
         this.context = context;
+        this.usersAdapter=this;
     }
 
     @Override
@@ -43,6 +45,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
             @Override
             public void onClick(View view) {
                 // display a toast with user name
+                userListResponseData.remove(position); //Actually change your list of items here
+                usersAdapter.notifyItemRemoved(position);
+                usersAdapter.notifyDataSetChanged();
                 Toast.makeText(context, userListResponseData.get(position).getCompany_name(), Toast.LENGTH_SHORT).show();
             }
         });
